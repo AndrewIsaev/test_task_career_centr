@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # First party apps
     'core',
+    'sales_network',
 ]
 
 MIDDLEWARE = [

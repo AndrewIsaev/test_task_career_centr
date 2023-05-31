@@ -6,11 +6,9 @@ from django.db import models
 class User(AbstractUser):
     """User class"""
 
-    is_active = models.BooleanField(default=False)
-
     class Meta:
-        verbose_name = "Пользователь"
-        verbose_name_plural = "Пользователи"
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
 
     def __str__(self):
         return self.username
