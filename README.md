@@ -45,6 +45,18 @@ Simple API for retail network
 2. Run docker container with database
    ```
     docker-compose up
+3. Make migrations
+   ```
+   ./manage.py makemigrations;
+   ./manage.py migrate;
+
+4. Create superuser
+   ```
+   ./manage.py createsuperuser
+   
+5. Runserver
+   ```
+   ./manage.py runserver
 ***
 ## Project structure
 - `core/`: login/register application
@@ -56,3 +68,6 @@ Simple API for retail network
 - `poetry.lock`: packages dependencies
 - `pyproject.toml`: packages list
 - `manage.py`: Django app management
+
+## OpenAPI documentation
+- http://127.0.0.1:8000/api/schema/swager-ui
