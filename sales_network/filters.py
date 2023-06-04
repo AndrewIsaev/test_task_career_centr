@@ -1,12 +1,19 @@
-import django_filters
+from typing import Type
+
+from django_filters import CharFilter
 from django_filters.rest_framework import FilterSet
 
 from sales_network.models import Unit
 
 
 class CountryFilter(FilterSet):
-    country = django_filters.CharFilter(field_name="contact__country", lookup_expr="icontains", )
+    """Filer by country"""
+
+    country: CharFilter = CharFilter(
+        field_name='contact__country',
+        lookup_expr='icontains',
+    )
 
     class Meta:
-        model = Unit
-        fields = ("contact__country", )
+        model: Type[Unit] = Unit
+        fields: tuple[str] = ('contact__country',)

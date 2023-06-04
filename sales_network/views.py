@@ -1,3 +1,5 @@
+from typing import Type
+
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework import viewsets
@@ -45,5 +47,6 @@ class UnitViewSet(viewsets.ModelViewSet):
         IsActivePermission,
     ]
 
-    def get_serializer_class(self):
+    def get_serializer_class(self) -> Type[UnitCreateSerializer | UnitSerializer]:
+        """Select serializer in dependence of actions"""
         return self.serializers.get(self.action, self.default_serializer)

@@ -4,9 +4,14 @@ from sales_network.models import Unit
 
 
 class SecondTierSupplier(serializers.ModelSerializer):
+    """
+    Second tier supplier serializer
+    """
+
     type = serializers.SerializerMethodField()
 
-    def get_type(self, obj):
+    def get_type(self, obj: Unit) -> str:
+        """Display unit type from choices"""
         return obj.get_type_display()
 
     class Meta:
@@ -15,10 +20,15 @@ class SecondTierSupplier(serializers.ModelSerializer):
 
 
 class FirstTierSupplier(serializers.ModelSerializer):
+    """
+    First tier supplier serializer
+    """
+
     supplier = SecondTierSupplier()
     type = serializers.SerializerMethodField()
 
-    def get_type(self, obj):
+    def get_type(self, obj: Unit) -> str:
+        """Display unit type from choices"""
         return obj.get_type_display()
 
     class Meta:
@@ -32,10 +42,15 @@ class FirstTierSupplier(serializers.ModelSerializer):
 
 
 class UnitSerializer(serializers.ModelSerializer):
+    """
+    Unit serializer
+    """
+
     supplier = FirstTierSupplier(read_only=True)
     type = serializers.SerializerMethodField()
 
-    def get_type(self, obj):
+    def get_type(self, obj: Unit) -> str:
+        """Display unit type from choices"""
         return obj.get_type_display()
 
     class Meta:
@@ -44,9 +59,11 @@ class UnitSerializer(serializers.ModelSerializer):
 
 
 class UnitCreateSerializer(serializers.ModelSerializer):
+    """Unit create update serializer"""
+
     supplier = serializers.PrimaryKeyRelatedField(queryset=Unit.objects.all())
 
     class Meta:
         model = Unit
         fields = ['title', 'type', 'debt', 'supplier', 'contact', 'product']
-        read_only_fields: list = ['debt']
+        read_only_fields: list[str] = ['debt']

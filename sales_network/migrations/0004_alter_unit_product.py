@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('sales_network', '0003_alter_contact_options_alter_product_options_and_more'),
     ]
@@ -13,6 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='unit',
             name='product',
-            field=models.ManyToManyField(blank=True, null=True, to='sales_network.product'),
+            field=models.ManyToManyField(
+                blank=True, null=True, to='sales_network.product'
+            ),
         ),
     ]
