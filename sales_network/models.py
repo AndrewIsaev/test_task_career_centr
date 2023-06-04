@@ -42,12 +42,12 @@ class Unit(models.Model):
         RETAIL_NETWORK = 1
         INDIVIDUAL_ENTREPRENEUR = 2
 
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, blank=True)
     type = models.PositiveSmallIntegerField(choices=Type.choices)
     contact = models.ForeignKey(
         'sales_network.Contact', on_delete=models.SET_NULL, null=True, blank=True
     )
-    product = models.ManyToManyField('sales_network.Product')
+    product = models.ManyToManyField('sales_network.Product', null=True, blank=True)
     supplier = models.ForeignKey(
         'sales_network.Unit', on_delete=models.SET_NULL, null=True, blank=True
     )

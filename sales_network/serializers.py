@@ -5,7 +5,6 @@ from sales_network.models import Unit
 
 class SecondTierSupplier(serializers.ModelSerializer):
     type = serializers.SerializerMethodField()
-    readonly_fields = ['debt']
 
     def get_type(self, obj):
         return obj.get_type_display()
@@ -18,7 +17,6 @@ class SecondTierSupplier(serializers.ModelSerializer):
 class FirstTierSupplier(serializers.ModelSerializer):
     supplier = SecondTierSupplier()
     type = serializers.SerializerMethodField()
-    readonly_fields = ['debt']
 
     def get_type(self, obj):
         return obj.get_type_display()
@@ -34,18 +32,21 @@ class FirstTierSupplier(serializers.ModelSerializer):
 
 
 class UnitSerializer(serializers.ModelSerializer):
-    supplier = FirstTierSupplier()
+    supplier = FirstTierSupplier(read_only=True)
     type = serializers.SerializerMethodField()
-    readonly_fields = ['debt']
 
     def get_type(self, obj):
         return obj.get_type_display()
 
     class Meta:
         model = Unit
-        fields = [
-            'id',
-            'title',
-            'type',
-            'supplier',
-        ]
+        fields = '__all__'
+
+
+class UnitCreateSerializer(serializers.ModelSerializer):
+    supplier = serializers.PrimaryKeyRelatedField(queryset=Unit.objects.all())
+
+    class Meta:
+        model = Unit
+        fields = ['title', 'type', 'debt', 'supplier', 'contact', 'product']
+        read_only_fields: list = ['debt']

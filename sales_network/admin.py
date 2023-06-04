@@ -19,7 +19,13 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Unit)
 class UnitAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'debt', 'supplier_url']
+    list_display = [
+        'id',
+        'title',
+        'supplier_url',
+        'debt',
+    ]
+    list_display_links = ['id', 'title']
     list_filter = ('contact__city',)
     actions = ('set_debt_to_zero',)
 
