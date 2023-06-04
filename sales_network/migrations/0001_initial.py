@@ -5,17 +5,23 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Contact',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('email', models.EmailField(max_length=254)),
                 ('country', models.CharField(blank=True, max_length=100, null=True)),
                 ('city', models.CharField(blank=True, max_length=100, null=True)),
@@ -26,7 +32,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Product',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('title', models.CharField(max_length=100)),
                 ('model', models.CharField(max_length=50)),
                 ('release_date', models.DateField(auto_now_add=True)),
@@ -35,14 +49,52 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Unit',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('title', models.CharField(max_length=100)),
-                ('type', models.PositiveSmallIntegerField(choices=[(0, 'Plant'), (1, 'Retail Network'), (2, 'Individual Entrepreneur')])),
+                (
+                    'type',
+                    models.PositiveSmallIntegerField(
+                        choices=[
+                            (0, 'Plant'),
+                            (1, 'Retail Network'),
+                            (2, 'Individual Entrepreneur'),
+                        ]
+                    ),
+                ),
                 ('debt', models.FloatField(default=0)),
                 ('created', models.DateTimeField(auto_now_add=True)),
-                ('contact', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='sales_network.contact')),
-                ('product', models.ManyToManyField(blank=True, null=True, to='sales_network.product')),
-                ('supplier', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='sales_network.unit')),
+                (
+                    'contact',
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to='sales_network.contact',
+                    ),
+                ),
+                (
+                    'product',
+                    models.ManyToManyField(
+                        blank=True, null=True, to='sales_network.product'
+                    ),
+                ),
+                (
+                    'supplier',
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to='sales_network.unit',
+                    ),
+                ),
             ],
         ),
     ]

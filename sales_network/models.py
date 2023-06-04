@@ -4,6 +4,7 @@ from django.db import models
 # Create your models here.
 class Product(models.Model):
     """Product model"""
+
     title = models.CharField(max_length=100)
     model = models.CharField(max_length=50)
     release_date = models.DateField(auto_now_add=True)
@@ -18,6 +19,7 @@ class Product(models.Model):
 
 class Contact(models.Model):
     """Contact model"""
+
     email = models.EmailField()
     country = models.CharField(max_length=100, null=True, blank=True)
     city = models.CharField(max_length=100, null=True, blank=True)
@@ -29,7 +31,7 @@ class Contact(models.Model):
         verbose_name_plural = 'Контакты'
 
     def __str__(self):
-        return f'{self.country},{self.city}, {self.street}'
+        return f'{self.country}, {self.city}, {self.street}'
 
 
 class Unit(models.Model):
@@ -42,9 +44,13 @@ class Unit(models.Model):
 
     title = models.CharField(max_length=100)
     type = models.PositiveSmallIntegerField(choices=Type.choices)
-    contact = models.ForeignKey('sales_network.Contact', on_delete=models.SET_NULL, null=True, blank=True)
+    contact = models.ForeignKey(
+        'sales_network.Contact', on_delete=models.SET_NULL, null=True, blank=True
+    )
     product = models.ManyToManyField('sales_network.Product')
-    supplier = models.ForeignKey('sales_network.Unit', on_delete=models.SET_NULL, null=True, blank=True)
+    supplier = models.ForeignKey(
+        'sales_network.Unit', on_delete=models.SET_NULL, null=True, blank=True
+    )
     debt = models.FloatField(default=0)
     created = models.DateTimeField(auto_now_add=True)
 
